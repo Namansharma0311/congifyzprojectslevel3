@@ -1,0 +1,329 @@
+/* =========================================================
+   TOKENS
+   black   #0A0A0A
+   white   #FFFFFF
+   orange  #FF4D00   (signature accent)
+   orange2 #FFA361   (soft tint, used sparingly)
+   paper   #F4F3EF   (background, warm off-white)
+   ========================================================= */
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: #F4F3EF;
+  color: #0A0A0A;
+  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+  overflow-x: hidden;
+}
+
+::selection { background: #FF4D00; color: #fff; }
+
+a { color: inherit; }
+
+/* =========================================================
+   HERO
+   ========================================================= */
+.hero {
+  padding: 90px 24px 60px;
+  text-align: center;
+}
+
+.eyebrow {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 0.72rem;
+  letter-spacing: 0.28em;
+  color: #FF4D00;
+  margin-bottom: 22px;
+}
+
+.hero-title {
+  font-family: 'Anton', sans-serif;
+  font-weight: 400;
+  font-size: clamp(3.2rem, 13vw, 8.5rem);
+  line-height: 0.86;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: #0A0A0A;
+}
+
+.hero-title span {
+  color: #FF4D00;
+  -webkit-text-stroke: 2px #0A0A0A;
+}
+
+.hero-sub {
+  max-width: 480px;
+  margin: 26px auto 0;
+  font-size: 0.98rem;
+  line-height: 1.6;
+  color: #4a4a4a;
+}
+
+/* =========================================================
+   MARQUEE BELT — signature element
+   ========================================================= */
+.belt {
+  background: #0A0A0A;
+  overflow: hidden;
+  white-space: nowrap;
+  padding: 18px 0;
+  transform: rotate(-1.4deg);
+  margin: 0 -6px 60px;
+  border-top: 3px solid #FF4D00;
+  border-bottom: 3px solid #FF4D00;
+}
+
+.belt-alt {
+  background: #FF4D00;
+  border-color: #0A0A0A;
+  transform: rotate(1.2deg);
+  margin: 60px -6px;
+}
+
+.belt-track {
+  display: inline-block;
+  font-family: 'Anton', sans-serif;
+  font-size: 1.15rem;
+  letter-spacing: 0.05em;
+  color: #FFFFFF;
+  animation: scrollLeft 32s linear infinite;
+}
+
+.belt-alt .belt-track { color: #0A0A0A; }
+
+.belt-track span { padding: 0 20px; }
+
+@keyframes scrollLeft {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+.belt-track-rev {
+  animation-name: scrollRight;
+}
+
+@keyframes scrollRight {
+  from { transform: translateX(-50%); }
+  to   { transform: translateX(0); }
+}
+
+/* =========================================================
+   LAYOUT
+   ========================================================= */
+.section {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 24px 40px;
+}
+
+.section-title {
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(2.2rem, 6vw, 3.4rem);
+  text-transform: uppercase;
+  text-align: center;
+  margin: 0 0 34px;
+  color: #0A0A0A;
+}
+
+/* =========================================================
+   CATEGORY ACCORDIONS (native <details>, zero JS)
+   ========================================================= */
+.category {
+  border-top: 3px solid #0A0A0A;
+  padding: 26px 0;
+}
+
+.category:last-of-type { border-bottom: 3px solid #0A0A0A; }
+
+.category summary {
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 4px 0;
+}
+
+.category summary::-webkit-details-marker { display: none; }
+
+.category summary::after {
+  content: '+';
+  font-family: 'Anton', sans-serif;
+  font-size: 2.4rem;
+  line-height: 1;
+  color: #FF4D00;
+  transition: transform 0.3s ease;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.category[open] summary::after {
+  content: '−';
+}
+
+.cat-title {
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(1.9rem, 5.5vw, 3.2rem);
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+.cat-title span { color: #FF4D00; }
+
+.cat-count {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: #8a8a8a;
+  white-space: nowrap;
+  align-self: center;
+}
+
+.ai-note {
+  font-size: 0.9rem;
+  color: #565656;
+  max-width: 620px;
+  margin: 18px 0 6px;
+  line-height: 1.55;
+}
+
+.ai-note code {
+  background: #0A0A0A;
+  color: #FF4D00;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-size: 0.85em;
+}
+
+/* =========================================================
+   PHOTO GRID
+   ========================================================= */
+.cat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 3px;
+  margin-top: 24px;
+}
+
+.thumb {
+  position: relative;
+  display: block;
+  background: #0A0A0A;
+  overflow: hidden;
+  text-decoration: none;
+}
+
+.thumb img {
+  width: 100%;
+  height: 190px;
+  object-fit: cover;
+  display: block;
+  filter: grayscale(45%) contrast(1.05);
+  transition: filter 0.35s ease, transform 0.5s ease;
+}
+
+.thumb:hover img {
+  filter: grayscale(0%) contrast(1.05);
+  transform: scale(1.06);
+}
+
+.thumb .caption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 10px 14px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #fff;
+  background: linear-gradient(0deg, rgba(10,10,10,0.92) 0%, rgba(10,10,10,0) 100%);
+}
+
+.thumb-ai::before {
+  content: 'AI';
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 2;
+  background: #FF4D00;
+  color: #fff;
+  font-family: 'Anton', sans-serif;
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  padding: 4px 8px;
+}
+
+/* =========================================================
+   AUTO SLIDESHOW — pure CSS keyframes, no radio inputs, no JS
+   ========================================================= */
+.slideshow {
+  position: relative;
+  max-width: 780px;
+  margin: 0 auto 20px;
+  aspect-ratio: 900 / 500;
+  overflow: hidden;
+  border: 3px solid #0A0A0A;
+}
+
+.slide-img {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  animation: slideCycle 18s infinite;
+}
+
+.slide-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+.s1 { animation-delay: 0s; }
+.s2 { animation-delay: 3s; }
+.s3 { animation-delay: 6s; }
+.s4 { animation-delay: 9s; }
+.s5 { animation-delay: 12s; }
+.s6 { animation-delay: 15s; }
+
+@keyframes slideCycle {
+  0%    { opacity: 0; }
+  3%    { opacity: 1; }
+  16%   { opacity: 1; }
+  19%   { opacity: 0; }
+  100%  { opacity: 0; }
+}
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+.foot {
+  text-align: center;
+  padding: 40px 20px 60px;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  font-weight: 700;
+  color: #8a8a8a;
+  text-transform: uppercase;
+}
+
+.foot-dot { color: #FF4D00; margin: 0 12px; }
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+@media (max-width: 640px) {
+  .hero { padding: 60px 20px 40px; }
+  .cat-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+  .thumb img { height: 140px; }
+  .category summary { flex-wrap: wrap; }
+  .cat-count { order: 3; }
+}
+
+/* Reduced motion respect */
+@media (prefers-reduced-motion: reduce) {
+  .belt-track, .slide-img { animation: none; }
+  .slide-img { opacity: 1; position: static; }
+  .slideshow { aspect-ratio: unset; }
+}
